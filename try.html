@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <!-- Styling -->
+  <style>
+
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --pad: 30px; /* Define variable */
+    }
+
+    .container{
+      display: flex;
+      background-color: blue;
+      height: 100vh;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      padding: 0px;
+    }
+
+    .both{
+      display: flex;
+      flex-direction: column; /* Align items vertically */
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
+      width: 100%;
+    }
+
+    .account{
+      background-color: wheat;
+      display: flex;
+      padding: 10px;
+      margin-bottom: 20px;
+      font-family: Arial, Helvetica, sans-serif;
+      align-items: center;
+    }
+
+    .balance{
+      margin-right:30px;
+      padding: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 30px;
+      color: blue;
+    }
+    .show_percentage{
+      padding: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .add_subtract{
+      display: flex;
+      width: 40%;
+      justify-content: space-between;
+      width: 30%;
+    }
+
+    button{
+      border: none;
+      padding: 5px;
+      border-radius: 2px;
+      color: black;
+      cursor:pointer;
+    }
+
+    .add{
+      background-color: rgb(54, 231, 54);
+      transition: background-color 0.15s;
+    }
+
+    .add:hover{
+      background-color: rgb(184, 253, 80);
+    }
+
+    .add:active{
+      background-color: green;
+    }
+    
+    .subtract{
+      background-color: red;
+      transition: background-color 0.15s;
+    }
+
+    .subtract:hover{
+      background-color: rgba(251, 88, 7, 0.938);
+    }
+
+    .subtract:active{
+      background-color: darkred;
+    }
+
+    .positiveo {
+      color: rgb(44, 194, 44);
+    }
+
+    .subtracto {
+      color: red;
+    }
+  </style>
+
+</head>
+<body>
+  
+  <!-- HTMLING -->
+  <div class="container">
+    <div class="both">
+      <div class="account">
+        <p class="balance">Account Balance = $<span class="change">0000</span></p>
+        <p class="show_percentage">000</p>
+      </div>
+      <div class="add_subtract">
+        <button class="add" onclick="add()">Add 10</button>
+        <button class="subtract" onclick="subtract()">Subtract 10</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripting -->
+  <script>
+    const initial = 55
+    let accountBalance = initial
+    let changeable = document.querySelector('.balance .change');
+    changeable.innerText = accountBalance;
+    
+    function add() {
+      accountBalance += 10;
+      updateScreen()
+      calculatePercentageAndDisplay()
+    };
+
+    function subtract() {
+      accountBalance -= 10;
+      updateScreen()
+      calculatePercentageAndDisplay()
+    };
+
+    function updateScreen() {
+      changeable = document.querySelector('.balance .change');
+      changeable.innerText = accountBalance;
+    };
+
+    function calculatePercentageAndDisplay() {
+      let percentage = Math.round((accountBalance-initial)/initial*100)
+      let winloss = document.querySelector('.container .both .account .show_percentage')
+      winloss.innerText = percentage
+
+      if (percentage >= 0) {
+        winloss.classList.add('positiveo');
+        winloss.classList.remove('subtracto');
+      } else if (percentage < 0) {
+        winloss.classList.add('subtracto');
+        winloss.classList.remove('add');
+      }
+    }
+
+  </script>
+
+</body>
+</html>
